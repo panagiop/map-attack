@@ -37,17 +37,7 @@ var UserSchema = new Schema({
     /*
     profileImg: { data: Buffer, contentType: String }
     */
-});
-
-// UserSchema.methods.generateHash = function(password) {
-//     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
-// };
-// UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-//     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-//         if (err) return cb(err);
-//         cb(null, isMatch);
-//     });
-// };
+}); 
 
 UserSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString('hex');
