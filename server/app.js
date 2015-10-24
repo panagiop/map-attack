@@ -5,7 +5,7 @@ var io = require('socket.io').listen(server);
 
 var path = require('path'); 
 
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
