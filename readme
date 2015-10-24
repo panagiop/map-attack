@@ -1,6 +1,9 @@
 MapAttack is an application comprising of an interactive map displaying a number of several attacks (verbal attacks, police attacks etc.) focused on these which took place in the broader region of Greece. Built with MEAN stack. Influenced by http://map.crisis-scape.net/
 
-<b>Test it as a authorized user using the following credentials:</b>
+Visit the application here:
+https://map-attack.herokuapp.com/
+
+Test it as a authorized user using the following credentials:
 username: testuser
 password: test
 
