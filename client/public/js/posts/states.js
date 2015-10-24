@@ -25,7 +25,9 @@
     ]);
 
     angular.module('postApp.states')
-        .config(function($stateProvider) {
+        .config(function($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/posts/allposts');
+
             $stateProvider
                 .state('posts', {
                     url: '/posts',
@@ -87,11 +89,10 @@
                     bindToController: true,
                 });
         })
-        // .run(['$state', 'Auth', function($state, Auth) {
-        //     if( !Auth.isLoggedIn() ){
-        //         console.log('not loggged in');
-        //         $state.go('login');
-        //     }
-        //     $state.go('posts'); //make a transition to posts state when app starts
-        // }]);
+        .run(['$state', 'Auth', function($state, Auth) {
+            /*if( !Auth.isLoggedIn() ){ 
+                $state.go('login');
+            }*/
+            $state.transitionTo('allposts'); //make a transition to posts state when app starts
+        }]);
 })();
