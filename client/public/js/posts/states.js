@@ -77,22 +77,31 @@
                     templateUrl: 'partials/posts/edit-post.html',
                     controller: 'EditPostController as vm',
                     bindToController: true,
+                    onEnter: ['$state', 'Auth', function($state, Auth){
+                        if(!Auth.isLoggedIn()){
+                            $state.go('login');
+                        }
+                    }]
                 }).state('viewpost', {
                     url: '/posts/:id',
                     templateUrl: 'partials/posts/view-post.html',
                     controller: 'ViewPostController as vm',
                     bindToController: true,
+                    onEnter: ['$state', 'Auth', function($state, Auth){
+                        if(!Auth.isLoggedIn()){
+                            $state.go('login');
+                        }
+                    }]
                 }).state('deletepost', {
                     url: '/posts/:id/delete',
                     templateUrl: 'partials/posts/delete-post.html',
                     controller: 'DeletePostController as vm',
                     bindToController: true,
+                    onEnter: ['$state', 'Auth', function($state, Auth){
+                        if(!Auth.isLoggedIn()){
+                            $state.go('login');
+                        }
+                    }]
                 });
         })
-        .run(['$state', 'Auth', function($state, Auth) {
-            /*if( !Auth.isLoggedIn() ){ 
-                $state.go('login');
-            }*/
-            $state.transitionTo('allposts'); //make a transition to posts state when app starts
-        }]);
 })();
