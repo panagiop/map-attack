@@ -1,0 +1,21 @@
+<header-directive></header-directive>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{vm.posts.posts.title}}</td>
+      <td>{{vm.posts.posts.text.substring(0,50)}} ...</td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <input type="submit" value="Cancel" ui-sref="posts" class="btn btn-primary"/>
+    <input type="submit" value="Delete" ng-click="vm.deletePost()" class="btn btn-danger"/>
+  </div>
+</div>

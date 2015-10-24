@@ -1,0 +1,54 @@
+<header-directive></header-directive>
+<form name="form" class="css-form">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Incident's location </label>
+        <div class="col-sm-10">
+            <div id="panel">
+                <input
+                    ng-if="vm.listOfMarkers.length"
+                    ng-model="vm.posts.loc"
+                    name="posts_loc"
+                    ng-click="vm.deleteMarker()"
+                    type="button"
+                    class="btn btn-danger"
+                    value="Delete Marker">
+                    <span ng-show="form.posts_loc.$error.required" class="alert-link-red">* Location in the map is required.</span>
+              </div>
+            <map center="current-location" zoom="15" on-click="vm.placeMarker()">
+                <!-- <marker position="current-location"></marker> -->
+            </map>
+            <br/>
+        </div>
+        <label class="col-sm-2 control-label">Title </label>
+        <div class="col-sm-10">
+            <input type="text" ng-model="vm.posts.title" name="posts_title" id="posttitle" placeholder="Post Title Here" ng-minlength="2" required="required" class="form-control" />
+            <span ng-show="form.posts_title.$error.required && form.posts_title.$dirty" class="alert-link-red">* Title is required.</span>
+            <span ng-show="form.posts_title.$error.minlength && form.posts_title.$dirty" class="alert-link-red">* Title must be at least 2 characters. </span>
+            <br/>
+        </div>
+        <label class="col-sm-2 control-label">Text</label>
+        <div class="col-sm-10">
+            <textarea ng-model="vm.posts.text" name="posts_text" id="posttext" placeholder="Content of the post" ng-minlength="2" required="required" class="form-control"></textarea>
+            <span ng-show="form.posts_text.$error.required && form.posts_text.$dirty" class="alert-link-red">* Text field is required.</span>
+            <span ng-show="form.posts_text.$error.minlength && form.posts_text.$dirty" class="alert-link-red">* Text must be at least 2 characters. </span>
+            <br/>
+        </div>
+        <label class="col-sm-2 control-label">Type of attack</label>
+        <div class="col-sm-10"> 
+            <select
+                ng-model="vm.posts.type_of_attack"
+                ng-options="attack for attack in vm.typeOfAttackValues"
+                name="posts_type_of_attack"
+                class="form-control">
+                <option value=""> Please select </option>
+		    </select>
+            <br/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Save" ng-click="vm.addPost()" ng-disabled="form.$invalid" class="btn btn-primary" />
+            <input type="submit" value="Cancel" ui-sref="posts" class="btn btn-danger" />
+        </div>
+    </div>
+</form>
