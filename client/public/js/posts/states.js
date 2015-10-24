@@ -86,12 +86,7 @@
                     url: '/posts/:id',
                     templateUrl: 'partials/posts/view-post.html',
                     controller: 'ViewPostController as vm',
-                    bindToController: true,
-                    onEnter: ['$state', 'Auth', function($state, Auth){
-                        if(!Auth.isLoggedIn()){
-                            $state.go('login');
-                        }
-                    }]
+                    bindToController: true
                 }).state('deletepost', {
                     url: '/posts/:id/delete',
                     templateUrl: 'partials/posts/delete-post.html',
