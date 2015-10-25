@@ -5,7 +5,6 @@
         'ui.router',
         'ngResource',
         'auth.service',
-        //'postApp.controllers',
         'postApp.controllers.index',
         'postApp.controllers.add',
         'postApp.controllers.edit',
@@ -14,14 +13,12 @@
         'Pagination.service',
         'ApiResource.service',
         'postApp.filters',
-        'postApp.directives',
         'ngMap',
         'typeOfAttackFactory',
         'socketio.service',
         'backButtonDirective',
         'assignIconsOnMapFactory',
-        'rzModule',
-        'postsFactory'
+        'rzModule'
     ]);
 
     angular.module('postApp.states')
