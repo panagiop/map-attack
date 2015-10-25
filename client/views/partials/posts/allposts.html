@@ -1,10 +1,10 @@
 <div class="col-md-8">
     <header-directive></header-directive> 
 
-    <map styles="[{stylers:[  {weight:1}]},
+    <map styles="[{stylers:[{weight:1}]},
                 {elementType:'labels',stylers:[{visibility:'on'}]},
-                {featureType:'water',stylers:[{color:'#000'}]}]"
-                center="current-location" zoom="5" map-type-id="TERRAIN">
+                {featureType:'water',stylers:[{color:'#000'}]}]" 
+                center="current-location" zoom="5">
 
         <marker ng-repeat="spot in vm.postsForMap"
                 position="{{spot.loc}}"

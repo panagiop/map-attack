@@ -1,20 +1,36 @@
 <header-directive></header-directive>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Text</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{vm.posts.title}}</td>
-      <td>{{vm.posts.text.substring(0,50)}} ...</td>
-    </tr>
-  </tbody>
-</table>
-<div class="form-group">
-  <div class="col-sm-offset-2 col-sm-10">
-    <input type="submit" value="Back" back-button-directive class="btn btn-primary"/>
-  </div>
-</div> 
+<label class="col-sm-2 control-label">Incident's location </label>
+<div class="col-sm-10">
+    <map styles="[{stylers:[{weight:1}]},
+                {elementType:'labels',stylers:[{visibility:'on'}]},
+                {featureType:'water',stylers:[{color:'#000'}]}]" 
+          center="{{vm.posts.loc}}" 
+          zoom="5">
+        <marker 
+          position="{{vm.posts.loc}}" 
+          icon="{{vm.posts.fillColor}}"
+          on-click="vm.showInfoWindowOnMouseClick(event, vm.posts)">
+    </map>
+    <br/>
+</div>
+<label class="col-sm-2 control-label">Title </label>
+<div class="col-sm-10">
+    <input type="text" ng-model="vm.posts.title" name="title" id="posttitle" placeholder="Post Title Here" class="form-control" disabled />
+    <br/>
+</div>
+<label class="col-sm-2 control-label">Text</label>
+<div class="col-sm-10">
+    <textarea ng-model="vm.posts.text" name="text" id="posttext" placeholder="Content of the post" class="form-control" disabled></textarea>
+    <br/>
+</div>
+<label class="col-sm-2 control-label">Type of attack</label>
+    <div class="col-sm-10">
+        <select ng-model="vm.posts.type_of_attack"
+                ng-options="attack for attack in vm.typeOfAttackValues"
+                name="type_of_attack" id="posttypeofattack"
+                class="form-control" disabled>
+                <option value=""> Please select </option>
+        </select>
+        <br/>
+    </div>
+
