@@ -9,10 +9,10 @@
 
         self.typeOfAttackValues = typeOfAttackValues;  
 
-        var temp = _.chain(self.posts).groupBy("type_of_attack").value();
+        var groupByTypeOfAttack = _.chain(self.posts).groupBy("type_of_attack").value();
 
         self.countPostsOfEachAttack = function(attack) {
-            return attack === 'Show All' ? [self.posts] : [ temp[attack] ];
+            return attack === 'Show All' ? [self.posts] : [ groupByTypeOfAttack[attack] ];
         }; 
 
         self.addOrRemoveTypeOfAttackFilter = function(typeOfAttack) {
