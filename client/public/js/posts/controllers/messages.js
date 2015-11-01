@@ -2,9 +2,7 @@
 	'use strict';
 
 	function MessagesController(postsResolve, Pagination, Auth, httpAsPromise) {
-		var self = this;
-
-		self.post = {};
+		var self = this; 
 
 		self.posts = postsResolve;
 		self.pagination = Pagination;  
@@ -13,13 +11,19 @@
         self.isLoggedIn = Auth.isLoggedIn();
         self.isLoggedInAsAdmin = Auth.isLoggedInAsAdmin(); 
 
-        self.statusChanged = false;
+        self.statusChangedForPosts = [];
+		var length = self.posts.length;
 
-        self.changePublishStatus = function(postId) {
-        	httpAsPromise.put('/api/posts/publishPost/' + postId, self.post).then(function(data) { 
-	            self.statusChanged = true;
+		for (var i = 0; i < length; i++) {
+		    self.statusChangedForPosts.push(false);
+		}
+
+        self.changePublishStatus = function(postId, index) {
+        	_.assign(self.posts[index], { isPublished: true });
+        	httpAsPromise.put('/api/posts/publishPost/' + postId, self.posts[index]).then(function(data) { 
+	            self.statusChangedForPosts[index] = true;
 	        });
-        }
+        };
 	}
 
 	MessagesController.$inject = ['postsResolve', 'Pagination', 'Auth', 'httpAsPromise'];

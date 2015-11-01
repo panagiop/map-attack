@@ -20,7 +20,7 @@
                     <td>{{post.type_of_attack}}</td>
                     <td>{{post.date | date:'medium'}}</td>
                     <td ng-if="vm.isLoggedInAsAdmin">
-                        <input type="submit" value="Publish" ng-model="vm.post.isPublished" ng-click="vm.changePublishStatus(post._id)" class="btn btn-primary" ng-disabled="vm.statusChanged ? true : false" />
+                        <input type="submit" value="Publish" ng-model="vm.posts[$index]" ng-click="vm.changePublishStatus(post._id, $index)" class="btn btn-primary" ng-disabled="vm.statusChangedForPosts[$index]" />
                     </td>
                 </tr>
             </tbody>

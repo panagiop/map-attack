@@ -19,7 +19,7 @@ router.get('/allposts', controller.allposts);
 router.get('/auth/queryByDate/:dateFrom/:dateTo', auth, controller.queryByDateAuth);
 router.get('/queryByDate/:dateFrom/:dateTo', controller.queryByDate);
 router.get('/messages', auth, controller.messages);
-router.get('/publishPost/:id', auth, controller.publishPost);
+router.put('/publishPost/:id', auth, controller.publishPost);
 router.get('/:id', controller.post);
 router.post('/', auth, controller.addpost);
 router.put('/:id', auth, controller.updatepost);
