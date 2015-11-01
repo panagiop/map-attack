@@ -57,7 +57,7 @@ exports.queryByDate = function(req, res) {
 };
 
 exports.messages = function(req, res) {
-    Posts.find({ isPublished: false }).exec(function(err, post) {
+    Posts.find({ isPublished: false }).populate('__user').exec(function(err, post) {
         if (err) { return handleError(res, err); }
         res.json({
             posts: post

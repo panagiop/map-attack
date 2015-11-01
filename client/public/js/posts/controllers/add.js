@@ -54,6 +54,7 @@
             self.posts.$save(function() {
                 $state.go('posts');
             });
+            alert("Success...Your post is now pending for confirmation from administrator. After that it will be visible among the other posts");
         };
     }
 
