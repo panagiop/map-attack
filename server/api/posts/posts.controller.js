@@ -6,39 +6,39 @@ function handleError(res, err) {
   return res.send(500, err);
 }
 
-exports.posts = function(req, res) {   
+exports.posts = function(req, res) {
     var loggedInUser = req.payload.username;
     if ( loggedInUser !== 'admin' ) {
-        Posts.find({ __user: req.payload._userId }).exec(function(err, post) {
+        Posts.find({ __user: req.payload._userId, isPublished: true }).exec(function(err, post) {
             if (err) { return handleError(res, err); }
             res.json({
                 posts: post
             });
         });
     } else {
-        Posts.find().populate('__user').exec(function(err, post) {
-             if (err) { return handleError(res, err); }
+        Posts.find({ isPublished: true }).populate('__user').exec(function(err, post) {
+            if (err) { return handleError(res, err); }
             res.json({
                 posts: post
             });
         });
-    } 
+    }
 };
 
 exports.allposts = function(req, res) {
-    Posts.find().exec(function(err, post) {
-         if (err) { return handleError(res, err); }
+    Posts.find({ isPublished: true }).exec(function(err, post) {
+        if (err) { return handleError(res, err); }
         res.json({
             posts: post
         });
     });
 };
 
-exports.queryByDateAuth = function(req, res) { 
+exports.queryByDateAuth = function(req, res) {
     var dateFrom = req.params.dateFrom;
     var dateTo = req.params.dateTo;
-    Posts.find({ __user: req.payload._userId, date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) }}).exec(function(err, data) {
-         if (err) { return handleError(res, err); }
+    Posts.find({ __user: req.payload._userId, isPublished: true, date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) }}).exec(function(err, data) {
+        if (err) { return handleError(res, err); }
         res.json({
             data: data
         })
@@ -48,13 +48,34 @@ exports.queryByDateAuth = function(req, res) {
 exports.queryByDate = function(req, res) { 
     var dateFrom = req.params.dateFrom;
     var dateTo = req.params.dateTo;
-    Posts.find({ date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) }}).exec(function(err, data) {
-         if (err) { return handleError(res, err); }
+    Posts.find({ isPublished: true, date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) }}).exec(function(err, data) {
+        if (err) { return handleError(res, err); }
         res.json({
             data: data
         })
     });
 };
+
+exports.messages = function(req, res) {
+    Posts.find({ isPublished: false }).exec(function(err, post) {
+        if (err) { return handleError(res, err); }
+        res.json({
+            posts: post
+        })
+    });
+};
+
+exports.publishPost = function(req, res) {
+    Posts.findById(req.params.id, function(err, post) { 
+        if (err) { return handleError(res, err); }
+        post.isPublished = true;
+
+        post.save(function(err, post){
+            if(err){ return handleError(res, err); }
+            res.json(post);
+        });
+    })
+}
 
 // fetch a post according to it's id
 exports.post = function(req, res) { 
@@ -70,6 +91,7 @@ exports.post = function(req, res) {
 exports.addpost = function(req, res) {
     var post = new Posts(req.body);
     post.date = new Date;
+    post.isPublished = false;
     post.__user = req.payload._userId; 
     post.save(function(err, post){
         if(err){ return handleError(res, err); } 
@@ -86,6 +108,7 @@ exports.updatepost = function(req, res) {
         post.type_of_attack = req.body.type_of_attack;
         post.loc = req.body.loc;
         post.date = new Date;
+        post.isPublished = true;
 
         post.save(function(err, post){
             if(err){ return handleError(res, err); }

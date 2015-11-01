@@ -22,6 +22,16 @@
                         deferred.reject();
                     });
                 return deferred.promise;
+			},
+			put: function(endpoint, obj) {
+				var deferred = $q.defer();
+                $http.put(endpoint, obj)
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    }).error(function() {
+                        deferred.reject();
+                    });
+                return deferred.promise;
 			}
 		}
 	}

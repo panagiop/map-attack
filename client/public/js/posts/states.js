@@ -10,6 +10,7 @@
         'postApp.controllers.edit',
         'postApp.controllers.view',
         'postApp.controllers.delete',
+        'postApp.controllers.messages',
         'Pagination.service',
         'ApiResource.service',
         'postApp.filters',
@@ -69,7 +70,27 @@
                             $state.go('login');
                         }
                     }]
-                }).state('editpost', {
+                })
+                .state('messages', {
+                    url: '/posts/messages',
+                    templateUrl: 'partials/posts/show-messages.html',
+                    controller: 'MessagesController as vm',
+                    bindToController: true,
+                    resolve: {
+                        postsResolve: function(ApiResource) {
+                            var postsData = ApiResource.resource('posts/messages').get(); 
+                            return postsData.$promise.then(function(data) {
+                                return data.posts;
+                            });
+                        }
+                    },
+                    onEnter: ['$state', 'Auth', function($state, Auth){
+                        if(!Auth.isLoggedIn()){
+                            $state.go('login');
+                        }
+                    }]
+                })
+                .state('editpost', {
                     url: '/posts/:id/edit',
                     templateUrl: 'partials/posts/edit-post.html',
                     controller: 'EditPostController as vm',

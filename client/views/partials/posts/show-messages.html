@@ -1,0 +1,40 @@
+<div class="col-md-8">
+    <header-directive></header-directive>
+    <div class="table-responsive">{{vm.posts[0].__user.username }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Text</th> 
+                    <th>Author</th>
+                    <th>Type of attack</th>
+                    <th>Date Posted</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="post in vm.posts | startFrom: vm.pagination.getCurrentPage() * vm.pagination.getResultsPerPage() | limitTo: vm.pagination.getResultsPerPage()">
+                    <td>{{post.title}}</td>
+                    <td>{{post.text.substring(0,50)}} ...</td>
+                    <td>{{vm.isLoggedInAsAdmin ? post.__user.username : vm.currentUser}}</td>
+                    <td>{{post.type_of_attack}}</td>
+                    <td>{{post.date | date:'medium'}}</td>
+                    <td ng-if="vm.isLoggedInAsAdmin">
+                        <input type="submit" value="Publish" ng-model="vm.post.isPublished" ng-click="vm.changePublishStatus(post._id)" class="btn btn-primary" ng-disabled="vm.statusChanged ? true : false" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <ul class="pagination">
+                            <li ng-hide="vm.pagination.getCurrentPage() === 0"><a href="#" ng-click="vm.pagination.prevPage()">« Prev</a></li>
+                            <li ng-repeat="n in [] | range: vm.pagination.numOfPages" ng-class="{active: n == vm.pagination.getCurrentPage()}" ng-click="vm.pagination.setCurrentPage(n)"><a href="#">{{n+1}}</a></li>
+                            <li ng-hide="vm.pagination.getCurrentPage() + 1 >= vm.pagination.numOfPages"><a href="#" ng-click="vm.pagination.nextPage()">Next »</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div> 
+</div>

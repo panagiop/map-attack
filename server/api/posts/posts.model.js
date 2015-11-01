@@ -12,6 +12,7 @@ var PostsSchema = new Schema({
     	index: '2d'
 	},
 	date: {type: 'Date', default: Date.now},
+	isPublished: Boolean,
 	__user : { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
