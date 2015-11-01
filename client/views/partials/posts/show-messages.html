@@ -1,6 +1,6 @@
 <div class="col-md-8">
     <header-directive></header-directive>
-    <div class="table-responsive">
+    <div ng-if="vm.posts.length" class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -19,8 +19,11 @@
                     <td>{{vm.isLoggedInAsAdmin ? post.__user.username : vm.currentUser}}</td>
                     <td>{{post.type_of_attack}}</td>
                     <td>{{post.date | date:'medium'}}</td>
+                    <td>
+                    	<input type="submit" value="View" ui-sref="viewpost({id: post._id})" class="btn btn-primary" />
+                    </td>
                     <td ng-if="vm.isLoggedInAsAdmin">
-                        <input type="submit" value="Publish" ng-model="vm.posts[$index]" ng-click="vm.changePublishStatus(post._id, $index)" class="btn btn-primary" ng-disabled="vm.statusChangedForPosts[$index]" />
+                        <input type="submit" value="Publish" ng-model="vm.posts[$index]" ng-click="vm.changePublishStatus(post._id, $index)" class="btn btn-success" ng-disabled="vm.statusChangedForPosts[$index]" />
                     </td>
                 </tr>
             </tbody>
@@ -37,4 +40,5 @@
             </tfoot>
         </table>
     </div> 
+    <div ng-if="!vm.posts.length" class="alert alert-info">You don't have any notifications!</div>
 </div>

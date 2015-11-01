@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li ng-if="vm.currentUser === 'admin'" role="presentation">
-                    <a ui-sref="messages">Messages <span ng-if="vm.pendingPostsLength" class="badge">{{vm.pendingPostsLength}}</span>
+                    <a ui-sref="messages">Notifications <span ng-if="vm.pendingPostsLength" class="badge">{{vm.pendingPostsLength}}</span>
                     <span ng-if="!vm.pendingPostsLength" class="badge">0</span>
                     </a>
                 </li>
