@@ -59,12 +59,6 @@
             };
 
             auth.register = function(user) {
-                // return $http.post('/auth/local/register', user).then(function(data) {
-                //     return auth.saveToken(data.data.token);
-                // }, function(error) {
-                //     return $q.reject();
-                // });
-
                 return httpAsPromise.post('/auth/local/register', user).then(function(data) { 
                     return auth.saveToken(data.token);
                 }); 
