@@ -113,3 +113,13 @@ body {
 .pagination > li > span:hover {
   cursor: pointer;
 } 
+
+@media screen and (max-width: 767px) { 
+  .nav > .filters {
+    display: inline-block;
+    margin: 1%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}

@@ -23,6 +23,7 @@ gulp.task('minifyjs', function() {
       'client/public/js/**/*.js',
       'client/public/theme/assets/js/jquery.min.js',
       'client/public/theme/assets/js/bootstrap.min.js',
+      'client/public/theme/assets/js/bootstrap-menu-collapse-fix.js',
       'client/public/theme/assets/js/*.js'
     ])
     .pipe(concat('app.min.js')) 
