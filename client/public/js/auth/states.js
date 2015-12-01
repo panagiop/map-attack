@@ -1,17 +1,17 @@
 (function() {
-	'use strict';
+    'use strict';
 
-	angular.module('auth.states', [
-		'ui.router',
-		'auth.service',
-		'auth.controllers',
+    angular.module('auth.states', [
+        'ui.router',
+        'auth.service',
+        'auth.controllers',
         'confirmPassword'
-	]);
+    ]);
 
-	angular.module('auth.states')
-		.config(function($stateProvider) {
+    angular.module('auth.states')
+        .config(function($stateProvider) {
             $stateProvider
-            	.state('login', {
+                .state('login', {
                     url: '/login',
                     templateUrl: 'partials/auth/login.html',
                     controller: 'AuthController as vm',
@@ -20,7 +20,7 @@
                     url: '/register',
                     templateUrl: 'partials/auth/register.html',
                     controller: 'AuthController as vm',
-                    bindToController: true 
+                    bindToController: true
                 })
         })
 })();
