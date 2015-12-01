@@ -1,7 +1,7 @@
 (function() {
-	'use strict';
+    'use strict';
 
-	function DeletePostController($state, $stateParams, ApiResource) {
+    function DeletePostController($state, $stateParams, ApiResource) {
         var self = this;
 
         self.posts = ApiResource.resource('posts').get({

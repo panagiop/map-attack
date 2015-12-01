@@ -1,24 +1,27 @@
 (function() {
-	'use strict';
+    'use strict';
 
-	    function AddPostController($state, ApiResource, Auth, $scope, typeOfAttackValues) {
+    function AddPostController($state, ApiResource, Auth, $scope, typeOfAttackValues) {
         var self = this;
         var marker, map;
 
         self.listOfMarkers = [];
         self.typeOfAttackValues = typeOfAttackValues;
-        self.typeOfAttackValues =  _.pluck(self.typeOfAttackValues, 'name').splice(0, 4); 
-        
+        self.typeOfAttackValues = _.pluck(self.typeOfAttackValues, 'name').splice(0, 4);
+
         $scope.$on('mapInitialized', function(evt, evtMap) {
             map = evtMap;
 
             self.placeMarker = function(e) {
-              var marker = new google.maps.Marker({position: e.latLng, map: map}); 
-              self.listOfMarkers.push(marker);
-              map.panTo(e.latLng);
-              if (self.listOfMarkers.length > 1) {
-                  marker.setMap(null);
-              }
+                var marker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: map
+                });
+                self.listOfMarkers.push(marker);
+                map.panTo(e.latLng);
+                if (self.listOfMarkers.length > 1) {
+                    marker.setMap(null);
+                }
             };
 
             function setAllMap(map) {
@@ -39,18 +42,18 @@
         });
 
         //create new post instance. Properties will be set via ng-model on UI
-        self.posts = new (ApiResource.resource('posts'))();
+        self.posts = new(ApiResource.resource('posts'))();
 
         // temp array contain the lat and lon of listOfMarkers
-        var latLon = []; 
+        var latLon = [];
 
         self.addPost = function() {
             for (var i in self.listOfMarkers[0].position) {
                 if (self.listOfMarkers[0].position.hasOwnProperty(i)) {
                     latLon.push(self.listOfMarkers[0].position[i]);
                 }
-            }  
-            self.posts.loc = [latLon[0](), latLon[1]()];  
+            }
+            self.posts.loc = [latLon[0](), latLon[1]()];
             self.posts.$save(function() {
                 $state.go('posts');
             });
