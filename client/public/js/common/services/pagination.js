@@ -3,9 +3,9 @@
 
     function Pagination() {
         // initial private properties and functions
-        var resultsPerPage = 6,
+        var resultsPerPage = 5,
             currentPage = 0,
-            numOfPages = 1000, // TODO: fix this ugly hack 
+            numOfPages = 1000, // TODO: fix this ugly hack
             _setResultsPerPage = function(resultsperpage) {
                 resultsPerPage = resultsperpage;
             },
@@ -34,7 +34,7 @@
             getCurrentPage = function() {
                 return currentPage;
             }
-            
+
         return {
             setResultsPerPage: setResultsPerPage,
             setCurrentPage: setCurrentPage,

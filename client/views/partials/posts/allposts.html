@@ -1,47 +1,50 @@
 <sidebar-filters-directive posts="vm.posts" posts-for-map="vm.postsForMap"></sidebar-filters-directive>
 
 <div class="col-md-8">
-    <header-directive></header-directive> 
+    <header-directive></header-directive>
 
     <map styles="[{stylers:[{weight:1}]},
                 {elementType:'labels',stylers:[{visibility:'on'}]},
-                {featureType:'water',stylers:[{color:'#000'}]}]" 
+                {featureType:'water',stylers:[{color:'#000'}]}]"
                 center="current-location" zoom="5">
 
         <marker ng-repeat="spot in vm.postsForMap"
                 position="{{spot.loc}}"
-                icon="{{spot.fillColor}}" 
+                icon="{{spot.fillColor}}"
                 title="{{spot.title}} {{spot.text}}"
                 on-click="vm.showInfoWindowOnMouseClick(event, spot)">
-        </marker> 
+        </marker>
     </map>
-     
+
     <div style="margin-top:30px;margin-bottom:20px">
         <rzslider rz-slider-floor="vm.dateSlider.floor"
-                    rz-slider-ceil="vm.dateSlider.ceil" 
+                    rz-slider-ceil="vm.dateSlider.ceil"
                     rz-slider-translate="vm.translate"
                     rz-slider-model="vm.dateSlider.min"
                     rz-slider-high="vm.dateSlider.max"
                     rz-slider-on-end="vm.onSliderChange()">
         </rzslider>
-    </div> 
-
+    </div>
+    <p ng-click="vm.toggleAdvancedSearch()" class="advanced-search"> {{vm.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
     <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Text</th> 
-                    <th>Type of attack</th>
+                    <th ng-if="!vm.searchTitleActive">Title</th>
+                    <th ng-if="vm.searchTitleActive"><input type="text" class="form-control" placeholder="title" ng-model="vm.searchTitle" /></th>
+                    <th ng-if="!vm.searchTextActive">Text</th>
+                    <th ng-if="vm.searchTextActive"><input type="text" class="form-control" placeholder="text" ng-model="vm.searchText"/></th>
+                    <th ng-if="!vm.searchTypeOfAttackRegExp">Type of attack</th>
+                    <th ng-if="vm.searchTypeOfAttackRegExp"><input type="text" class="form-control" placeholder="type of attack" ng-model="vm.searchTypeOfAttack"/></th>
                     <th>Date Posted</th>
                     <th></th>
-                    <th></th>
+                    <th ng-if="vm.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch(vm.searchTitle, vm.searchText, vm.searchTypeOfAttack)"/></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody ng-if="!vm.noResultsFound">
                 <tr ng-repeat="post in vm.posts | startFrom: vm.pagination.getCurrentPage() * vm.pagination.getResultsPerPage() | limitTo: vm.pagination.getResultsPerPage()">
                     <td>{{post.title}}</td>
-                    <td>{{post.text.substring(0,50)}} ...</td> 
+                    <td>{{post.text.substring(0,50)}} ...</td>
                     <td>{{post.type_of_attack}}</td>
                     <td>{{post.date | date:'medium'}}</td>
                     <td>
@@ -55,6 +58,7 @@
                     </td>
                 </tr>
             </tbody>
+            <p ng-if="vm.noResultsFound" class="alert alert-info">No results found!</p>
             <tfoot>
                 <tr>
                     <td colspan="2">
@@ -78,7 +82,7 @@
                     <h4 class="modal-title" id="myModalLabel">About</h4>
                 </div>
                 <div class="modal-body">
-                MapAttack is an application comprising of an interactive map displaying a number of several attacks (verbal attacks, police attacks etc.) focused on these which took place in the broader region of Greece. Influenced by 
+                MapAttack is an application comprising of an interactive map displaying a number of several attacks (verbal attacks, police attacks etc.) focused on these which took place in the broader region of Greece. Influenced by
                 </div>
                 <div class="modal-footer">
                     Created by panagiop

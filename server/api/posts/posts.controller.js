@@ -1,6 +1,6 @@
 'use strict';
 
-var Posts = require('./posts.model'); 
+var Posts = require('./posts.model');
 
 function handleError(res, err) {
   return res.send(500, err);
@@ -45,7 +45,7 @@ exports.queryByDateAuth = function(req, res) {
     });
 };
 
-exports.queryByDate = function(req, res) { 
+exports.queryByDate = function(req, res) {
     var dateFrom = req.params.dateFrom;
     var dateTo = req.params.dateTo;
     Posts.find({ isPublished: true, date: { $gte: new Date(dateFrom), $lte: new Date(dateTo) }}).exec(function(err, data) {
@@ -53,6 +53,20 @@ exports.queryByDate = function(req, res) {
         res.json({
             data: data
         })
+    });
+};
+
+exports.advancedSearch = function(req, res) {
+    var params = {};
+
+    for (var key in req.query) {
+        if (req.query.hasOwnProperty(key)) {
+            params[key] = new RegExp(req.query[key], 'i');
+        }
+    }
+
+    Posts.find(params).where('isPublished').equals('true').exec(function(err, data) {
+        res.json( { data: data } );
     });
 };
 
@@ -66,7 +80,7 @@ exports.messages = function(req, res) {
 };
 
 exports.publishPost = function(req, res) {
-    Posts.findById(req.params.id, function(err, post) { 
+    Posts.findById(req.params.id, function(err, post) {
         if (err) { return handleError(res, err); }
         post.isPublished = true;
 
@@ -78,8 +92,8 @@ exports.publishPost = function(req, res) {
 }
 
 // fetch a post according to it's id
-exports.post = function(req, res) { 
-    Posts.findById(req.params.id, function(err, posts) { 
+exports.post = function(req, res) {
+    Posts.findById(req.params.id, function(err, posts) {
         if (err) { return handleError(res, err); }
         res.json({
             posts: posts
@@ -92,9 +106,9 @@ exports.addpost = function(req, res) {
     var post = new Posts(req.body);
     post.date = new Date;
     post.isPublished = false;
-    post.__user = req.payload._userId; 
+    post.__user = req.payload._userId;
     post.save(function(err, post){
-        if(err){ return handleError(res, err); } 
+        if(err){ return handleError(res, err); }
         res.json(post);
     });
 };
@@ -119,4 +133,4 @@ exports.updatepost = function(req, res) {
 
 exports.deletepost = function(req, res) {
     // Posts.findById(req.params.id, function(err, post) {});
-};  
+};

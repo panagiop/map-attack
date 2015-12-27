@@ -112,9 +112,17 @@ body {
 
 .pagination > li > span:hover {
   cursor: pointer;
-} 
+}
 
-@media screen and (max-width: 767px) { 
+.advanced-search {
+    padding: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 10px;
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
   .nav > .filters {
     display: inline-block;
     margin: 1%;

@@ -1,7 +1,7 @@
 <sidebar-filters-directive posts="vm.posts" posts-for-map="vm.postsForMap"></sidebar-filters-directive>
 
 <div class="col-md-8">
-    <header-directive></header-directive> 
+    <header-directive></header-directive>
 
     <div ng-show="!vm.posts.length" class="alert alert-info">You don't have any posts yet. <br>You can add one from
     "Add post" section on header.</div>
@@ -14,21 +14,21 @@
 
             <marker ng-repeat="spot in vm.postsForMap"
                     position="{{spot.loc}}"
-                    icon="{{spot.fillColor}}" 
+                    icon="{{spot.fillColor}}"
                     title="{{spot.title}} {{spot.text}}"
                     on-click="vm.showInfoWindowOnMouseClick(event, spot)">
-            </marker> 
-        </map> 
+            </marker>
+        </map>
 
         <div style="margin-top:30px;margin-bottom:20px">
             <rzslider rz-slider-floor="vm.dateSlider.floor"
-                    rz-slider-ceil="vm.dateSlider.ceil" 
+                    rz-slider-ceil="vm.dateSlider.ceil"
                     rz-slider-translate="vm.translate"
                     rz-slider-model="vm.dateSlider.min"
                     rz-slider-high="vm.dateSlider.max"
                     rz-slider-on-end="vm.onSliderChange()">
         </rzslider>
-        </div> 
+        </div>
 
         <div class="table-responsive">
             <table class="table">
@@ -98,6 +98,4 @@
             </div>
         </div>
     </div>
-</div> 
-
- 
+</div>
