@@ -27,23 +27,28 @@
                     rz-slider-model="vm.dateSlider.min"
                     rz-slider-high="vm.dateSlider.max"
                     rz-slider-on-end="vm.onSliderChange()">
-        </rzslider>
+            </rzslider>
         </div>
+        <p ng-click="vm.toggleAdvancedSearch()" class="advanced-search"> {{vm.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
 
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Text</th>
+                        <th ng-if="!vm.searchTitleActive">Title</th>
+                        <th ng-if="vm.searchTitleActive"><input type="text" class="form-control" placeholder="title" ng-model="vm.searchTitle" /></th>
+                        <th ng-if="!vm.searchTextActive">Text</th>
+                        <th ng-if="vm.searchTextActive"><input type="text" class="form-control" placeholder="text" ng-model="vm.searchText"/></th>
                         <th ng-if="vm.isLoggedIn">Author</th>
-                        <th>Type of attack</th>
+                        <th ng-if="!vm.searchTypeOfAttackRegExp">Type of attack</th>
+                        <th ng-if="vm.searchTypeOfAttackRegExp"><input type="text" class="form-control" placeholder="type of attack" ng-model="vm.searchTypeOfAttack"/></th>
                         <th>Date Posted</th>
                         <th></th>
                         <th></th>
+                        <th ng-if="vm.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch(vm.searchTitle, vm.searchText, vm.searchTypeOfAttack)"/></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody ng-if="!vm.noResultsFound">
                     <tr ng-repeat="post in vm.posts | startFrom: vm.pagination.getCurrentPage() * vm.pagination.getResultsPerPage() | limitTo: vm.pagination.getResultsPerPage()">
                         <td>{{post.title}}</td>
                         <td>{{post.text.substring(0,50)}} ...</td>
@@ -61,6 +66,7 @@
                         </td>
                     </tr>
                 </tbody>
+                <p ng-if="vm.noResultsFound" class="alert alert-info">No results found!</p>
                 <tfoot>
                     <tr>
                         <td colspan="2">
