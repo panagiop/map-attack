@@ -64,7 +64,7 @@
                     <td colspan="2">
                         <ul class="pagination">
                             <li ng-hide="vm.pagination.getCurrentPage() === 0"><a href="#" ng-click="vm.pagination.prevPage()">« Prev</a></li>
-                            <li ng-repeat="n in [] | range: vm.pagination.numOfPages" ng-class="{active: n == vm.pagination.getCurrentPage()}" ng-click="vm.pagination.setCurrentPage(n)"><a href="#">{{n+1}}</a></li>
+                            <li ng-repeat="n in [] | range: vm.pagination.numOfPages" ng-class="{active: n == vm.pagination.getCurrentPage()}" ng-click="vm.pagination.setCurrentPage(n)"><a href="">{{n+1}}</a></li>
                             <li ng-hide="vm.pagination.getCurrentPage() + 1 >= vm.pagination.numOfPages"><a href="#" ng-click="vm.pagination.nextPage()">Next »</a></li>
                         </ul>
                     </td>

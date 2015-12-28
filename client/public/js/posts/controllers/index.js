@@ -110,13 +110,14 @@
                 }
                 self.posts = data.data;
                 self.noResultsFound = false;
+
                 return self.posts;
             });
 
             $scope.$watch(angular.bind(self, function() {
                 return self.posts;
             }), function (newVal) {
-                self.pagination.numOfPages = Math.ceil(self.posts.length / self.pagination.getResultsPerPage());
+                self.pagination.numOfPages = Math.ceil(newVal.length / self.pagination.getResultsPerPage());
             })
         };
 
