@@ -30,6 +30,7 @@
             </rzslider>
         </div>
         <p ng-click="vm.toggleAdvancedSearch()" class="advanced-search"> {{vm.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
+        <span ng-if="vm.searchTitleActive" ng-click="vm.clearFilters()"><input type="submit" value="Clear filters" class="btn btn-danger"/></span>
 
         <div class="table-responsive">
             <table class="table">

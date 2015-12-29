@@ -91,9 +91,9 @@
             var query = "";
 
             var queryParams = {
-                title: self.searchTitle ? self.searchTitle : '',
-                text: self.searchText ? self.searchText : '',
-                type_of_attack: self.searchTypeOfAttack ? self.searchTypeOfAttack : '',
+                title: title ? title : '',
+                text: text ? text : '',
+                type_of_attack: type_of_attack ? type_of_attack : '',
             };
 
             for (var i in queryParams) {
@@ -119,6 +119,13 @@
             }), function (newVal) {
                 self.pagination.numOfPages = Math.ceil(newVal.length / self.pagination.getResultsPerPage());
             })
+        };
+
+        self.clearFilters = function() {
+            self.searchTitle = '';
+            self.searchText = '';
+            self.searchTypeOfAttack = '';
+            self.makeAdvancedSearch();
         };
 
         function populatePostChangeOnAdd(collection, item) {
