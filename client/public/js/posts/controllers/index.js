@@ -1,14 +1,8 @@
 (function() {
     'use strict';
 
-    function PostsController($scope, $location, postsResolve, Pagination, Auth, socketio, httpAsPromise, assignIconsOnMapFactory) {
+    function PostsController($scope, $rootScope, $location, postsResolve, Pagination, Auth, socketio, httpAsPromise, assignIconsOnMapFactory, HelpersFactory) {
         var self = this;
-        var infowindow, center;
-        //var map;
-
-        $scope.$on('mapInitialized', function (event, map) {
-            $scope.objMap = map;
-        });
 
         self.currentUser = Auth.currentUser();
         self.isLoggedIn = Auth.isLoggedIn();
@@ -22,9 +16,7 @@
 
         assignIconsOnMapFactory.assignIconsOnMap(self.postsForMap);
 
-        self.searchTitleActive = false;
-        self.searchTextActive = false;
-        self.searchTypeOfAttackRegExp = false;
+        self.helpers = new HelpersFactory.HelpersFactory($rootScope);
 
         self.noResultsFound = false;
 
@@ -45,12 +37,6 @@
             self.dateSlider.ceil = self.dateSlider.max;
         }
 
-        // translate date (timestamp) to ISO and then in dd-mm-yy format
-        self.translate = function(value) {
-            var a = new Date(value).toISOString();
-            return new Date(a).getDate() + '-' + parseInt(new Date(a).getMonth() + 1) + '-' + new Date(a).getFullYear();
-        };
-
         self.onSliderChange = function() {
             var dateFrom = new Date(self.dateSlider.min).toISOString();
             var dateTo = new Date(self.dateSlider.max).toISOString();
@@ -70,22 +56,11 @@
 	        }
         };
 
-        self.showInfoWindowOnMouseClick = function (event, p) {
-            infowindow = new google.maps.InfoWindow();
-            center = new google.maps.LatLng(p.loc[0],p.loc[1]);
-
-            infowindow.setContent(
-                '<p>' + p.title + '<br>' + p.text + '</p>');
-
-            infowindow.setPosition(center);
-            infowindow.open($scope.objMap);
+         self.clearFiltersUI = function() {
+             self.helpers.clearFilters(function() {
+                 self.makeAdvancedSearch(self.helpers.searchTitle, self.helpers.searchText, self.helpers.searchTypeOfAttack);
+             });
          };
-
-        self.toggleAdvancedSearch = function() {
-            self.searchTitleActive = !self.searchTitleActive;
-            self.searchTextActive = !self.searchTextActive;
-            self.searchTypeOfAttackRegExp = !self.searchTypeOfAttackRegExp;
-        };
 
         self.makeAdvancedSearch = function(title, text, type_of_attack) {
             var query = "";
@@ -121,13 +96,6 @@
             })
         };
 
-        self.clearFilters = function() {
-            self.searchTitle = '';
-            self.searchText = '';
-            self.searchTypeOfAttack = '';
-            self.makeAdvancedSearch();
-        };
-
         function populatePostChangeOnAdd(collection, item) {
             var oldItem = _.find(collection, {
                 _id: item._id
@@ -160,7 +128,7 @@
         });
     }
 
-    PostsController.$inject = ['$scope', '$location', 'postsResolve', 'Pagination', 'Auth', 'socketio', 'httpAsPromise', 'assignIconsOnMapFactory'];
+    PostsController.$inject = ['$scope',  '$rootScope', '$location', 'postsResolve', 'Pagination', 'Auth', 'socketio', 'httpAsPromise', 'assignIconsOnMapFactory', 'HelpersFactory'];
 
     angular.module('postApp.controllers.index', [])
         .controller('PostsController', PostsController)

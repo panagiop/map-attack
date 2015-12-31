@@ -19,6 +19,7 @@
         'socketio.service',
         'backButtonDirective',
         'assignIconsOnMapFactory',
+        'HelpersFactory',
         'rzModule'
     ]);
 
@@ -78,7 +79,7 @@
                     bindToController: true,
                     resolve: {
                         postsResolve: function(ApiResource) {
-                            var postsData = ApiResource.resource('posts/messages').get(); 
+                            var postsData = ApiResource.resource('posts/messages').get();
                             return postsData.$promise.then(function(data) {
                                 return data.posts;
                             });

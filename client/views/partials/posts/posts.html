@@ -16,37 +16,39 @@
                     position="{{spot.loc}}"
                     icon="{{spot.fillColor}}"
                     title="{{spot.title}} {{spot.text}}"
-                    on-click="vm.showInfoWindowOnMouseClick(event, spot)">
+                    on-click="vm.helpers.showInfoWindowOnMouseClick(event, spot)">
             </marker>
         </map>
 
         <div style="margin-top:30px;margin-bottom:20px">
             <rzslider rz-slider-floor="vm.dateSlider.floor"
                     rz-slider-ceil="vm.dateSlider.ceil"
-                    rz-slider-translate="vm.translate"
+                    rz-slider-translate="vm.helpers.translate"
                     rz-slider-model="vm.dateSlider.min"
                     rz-slider-high="vm.dateSlider.max"
                     rz-slider-on-end="vm.onSliderChange()">
             </rzslider>
         </div>
-        <p ng-click="vm.toggleAdvancedSearch()" class="advanced-search"> {{vm.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
-        <span ng-if="vm.searchTitleActive" ng-click="vm.clearFilters()"><input type="submit" value="Clear filters" class="btn btn-danger"/></span>
-
+        <p ng-click="vm.helpers.toggleAdvancedSearch()" class="advanced-search"> {{vm.helpers.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
+        <span ng-if="vm.helpers.searchTitleActive"
+              ng-click="vm.clearFiltersUI()">
+              <input type="submit" value="Clear filters" class="btn btn-danger"/>
+        </span>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th ng-if="!vm.searchTitleActive">Title</th>
-                        <th ng-if="vm.searchTitleActive"><input type="text" class="form-control" placeholder="title" ng-model="vm.searchTitle" /></th>
-                        <th ng-if="!vm.searchTextActive">Text</th>
-                        <th ng-if="vm.searchTextActive"><input type="text" class="form-control" placeholder="text" ng-model="vm.searchText"/></th>
+                        <th ng-if="!vm.helpers.searchTitleActive">Title</th>
+                        <th ng-if="vm.helpers.searchTitleActive"><input type="text" class="form-control" placeholder="title" ng-model="vm.helpers.searchTitle" /></th>
+                        <th ng-if="!vm.helpers.searchTextActive">Text</th>
+                        <th ng-if="vm.helpers.searchTextActive"><input type="text" class="form-control" placeholder="text" ng-model="vm.helpers.searchText"/></th>
                         <th ng-if="vm.isLoggedIn">Author</th>
-                        <th ng-if="!vm.searchTypeOfAttackRegExp">Type of attack</th>
-                        <th ng-if="vm.searchTypeOfAttackRegExp"><input type="text" class="form-control" placeholder="type of attack" ng-model="vm.searchTypeOfAttack"/></th>
+                        <th ng-if="!vm.helpers.searchTypeOfAttackRegExp">Type of attack</th>
+                        <th ng-if="vm.helpers.searchTypeOfAttackRegExp"><input type="text" class="form-control" placeholder="type of attack" ng-model="vm.helpers.searchTypeOfAttack"/></th>
                         <th>Date Posted</th>
                         <th></th>
                         <th></th>
-                        <th ng-if="vm.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch(vm.searchTitle, vm.searchText, vm.searchTypeOfAttack)"/></th>
+                        <th ng-if="vm.helpers.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch(vm.helpers.searchTitle, vm.helpers.searchText, vm.helpers.searchTypeOfAttack)"/></th>
                     </tr>
                 </thead>
                 <tbody ng-if="!vm.noResultsFound">
