@@ -42,25 +42,25 @@
             var dateTo = new Date(self.dateSlider.max).toISOString();
 
             if (self.isLoggedIn && $location.$$url === '/posts') {
-	            httpAsPromise.fetch('/api/posts/auth/queryByDate/' + dateFrom + '/' + dateTo).then(function(data) {
-	                self.postsForMap = data.data;
-	                assignIconsOnMapFactory.assignIconsOnMap(self.postsForMap);
-	            });
-	        }
+                httpAsPromise.fetch('/api/posts/auth/queryByDate/' + dateFrom + '/' + dateTo).then(function(data) {
+                    self.postsForMap = data.data;
+                    assignIconsOnMapFactory.assignIconsOnMap(self.postsForMap);
+                });
+            }
 
-	        if($location.$$url === '/posts/allposts' || self.isLoggedInAsAdmin) {
-	        	httpAsPromise.fetch('/api/posts/queryByDate/' + dateFrom + '/' + dateTo).then(function(data) {
-	                self.postsForMap = data.data;
-	                assignIconsOnMapFactory.assignIconsOnMap(self.postsForMap);
-	            });
-	        }
+            if ($location.$$url === '/posts/allposts' || self.isLoggedInAsAdmin) {
+                httpAsPromise.fetch('/api/posts/queryByDate/' + dateFrom + '/' + dateTo).then(function(data) {
+                    self.postsForMap = data.data;
+                    assignIconsOnMapFactory.assignIconsOnMap(self.postsForMap);
+                });
+            }
         };
 
-         self.clearFiltersUI = function() {
-             self.helpers.clearFilters(function() {
-                 self.makeAdvancedSearch(self.helpers.searchTitle, self.helpers.searchText, self.helpers.searchTypeOfAttack);
-             });
-         };
+        self.clearFiltersUI = function() {
+            self.helpers.clearFilters(function() {
+                self.makeAdvancedSearch(self.helpers.searchTitle, self.helpers.searchText, self.helpers.searchTypeOfAttack);
+            });
+        };
 
         self.makeAdvancedSearch = function(title, text, type_of_attack) {
             var query = "";
@@ -91,7 +91,7 @@
 
             $scope.$watch(angular.bind(self, function() {
                 return self.posts;
-            }), function (newVal) {
+            }), function(newVal) {
                 self.pagination.numOfPages = Math.ceil(newVal.length / self.pagination.getResultsPerPage());
             })
         };
@@ -123,12 +123,12 @@
         });
 
         socketio.on('posts:remove', function(item) {
-           populatePostChangeOnDelete(self.posts, item);
-           // populatePostChangeOnDelete(self.postsForMap, item);
+            populatePostChangeOnDelete(self.posts, item);
+            // populatePostChangeOnDelete(self.postsForMap, item);
         });
     }
 
-    PostsController.$inject = ['$scope',  '$rootScope', '$location', 'postsResolve', 'Pagination', 'Auth', 'socketio', 'httpAsPromise', 'assignIconsOnMapFactory', 'HelpersFactory'];
+    PostsController.$inject = ['$scope', '$rootScope', '$location', 'postsResolve', 'Pagination', 'Auth', 'socketio', 'httpAsPromise', 'assignIconsOnMapFactory', 'HelpersFactory'];
 
     angular.module('postApp.controllers.index', [])
         .controller('PostsController', PostsController)
