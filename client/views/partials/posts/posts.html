@@ -31,7 +31,7 @@
         </div>
         <p ng-click="vm.helpers.toggleAdvancedSearch()" class="advanced-search"> {{vm.helpers.searchTitleActive ? 'Close search boxes' : 'Advanced search'}}</p>
         <span ng-if="vm.helpers.searchTitleActive"
-              ng-click="vm.clearFiltersUI()">
+              ng-click="vm.clearFiltersUI({ title: vm.helpers.searchTitle, text: vm.helpers.searchText, type_of_attack: vm.helpers.searchTypeOfAttack })">
               <input type="submit" value="Clear filters" class="btn btn-danger"/>
         </span>
         <div class="table-responsive">
@@ -48,7 +48,7 @@
                         <th>Date Posted</th>
                         <th></th>
                         <th></th>
-                        <th ng-if="vm.helpers.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch(vm.helpers.searchTitle, vm.helpers.searchText, vm.helpers.searchTypeOfAttack)"/></th>
+                        <th ng-if="vm.helpers.searchTitleActive"><input type="submit" value="Search" class="btn btn-success" ng-click="vm.makeAdvancedSearch({ title: vm.helpers.searchTitle, text: vm.helpers.searchText, type_of_attack: vm.helpers.searchTypeOfAttack })"/></th>
                     </tr>
                 </thead>
                 <tbody ng-if="!vm.noResultsFound">

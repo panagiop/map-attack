@@ -32,10 +32,12 @@
         };
 
         self.clearFilters = function(callback) {
+            if (self.searchTitle === '' && self.searchText === '' && self.searchTypeOfAttack === '') {
+                return callback();
+            }
             self.searchTitle = '';
             self.searchText = '';
             self.searchTypeOfAttack = '';
-            callback();
         };
 
         self.toggleAdvancedSearch = function() {

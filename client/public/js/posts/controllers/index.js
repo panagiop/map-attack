@@ -56,19 +56,20 @@
             }
         };
 
-        self.clearFiltersUI = function() {
+        self.clearFiltersUI = function(options) {
             self.helpers.clearFilters(function() {
-                self.makeAdvancedSearch(self.helpers.searchTitle, self.helpers.searchText, self.helpers.searchTypeOfAttack);
+                self.makeAdvancedSearch(options);
             });
+
         };
 
-        self.makeAdvancedSearch = function(title, text, type_of_attack) {
+        self.makeAdvancedSearch = function(options) {
             var query = "";
 
             var queryParams = {
-                title: title ? title : '',
-                text: text ? text : '',
-                type_of_attack: type_of_attack ? type_of_attack : '',
+                title: options.title ? options.title : '',
+                text: options.text ? options.text : '',
+                type_of_attack: options.type_of_attack ? options.type_of_attack : '',
             };
 
             for (var i in queryParams) {
