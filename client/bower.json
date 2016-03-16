@@ -1,0 +1,15 @@
+{
+  "name": "map-attack",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.4.3",
+    "angular-ui-router": "0.2.10",
+    "angular-resource": "1.4.3",
+    "jquery": "1.11.3",
+    "bootstrap": "3.3.5",
+    "angularjs-slider": "0.1.32",
+    "socket.io-client": "~1.4.5",
+    "lodash": "3.10.1",
+    "ngmap": "~1.16.7"
+  }
+}
