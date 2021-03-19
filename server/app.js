@@ -19,8 +19,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var generalconfig = require('./generalconfig');
 
-// mongoose.connect('mongodb://localhost/mapattack');
-mongoose.connect(generalconfig.db);
+mongoose.connect(generalconfig.db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+     .then(() => console.log( 'Database Connected' ))
+     .catch(err => console.log( err ));
 
 // populate db with sample data
 // require('./db/sample-data');
